@@ -1,1 +1,203 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Styles */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.header {
+  background-color: #fff;
+  padding: 20px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3a86ff;
+  }
+  
+  nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .download-btn {
+    background-color: #3a86ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+/* Hero Section */
+.hero {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+  text-align: center;
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #3a86ff;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+  }
+  
+  .cta-button {
+    background-color: #3a86ff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+/* Stats Section */
+.stats {
+  padding: 50px 0;
+  background-color: #3a86ff;
+  color: white;
+  
+  .container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+}
+
+/* Study Tracking Section */
+.study-tracking {
+  padding: 60px 0;
+  background-color: #f8f9fa;
+  
+  .container {
+    max-width: 500px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  
+  .time-display {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #3a86ff;
+  }
+  
+  h3 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .subject {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .total-progress {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    font-weight: bold;
+    
+    .warning {
+      color: #ff6b6b;
+    }
+  }
+  
+  .study-plan {
+    h4 {
+      margin-bottom: 15px;
+    }
+    
+    ul {
+      list-style-type: none;
+      padding: 0;
+      
+      li {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+    }
+  }
+}
+
+/* Features Section */
+.features {
+  padding: 80px 0;
+  text-align: center;
+  
+  h2 {
+    font-size: 2rem;
+    color: #3a86ff;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 50px;
+  }
+  
+  .feature-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .feature-card {
+    flex: 1;
+    min-width: 300px;
+    margin: 15px;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    
+    h4 {
+      font-size: 1.3rem;
+      color: #3a86ff;
+      margin-bottom: 15px;
+    }
+  }
+}
