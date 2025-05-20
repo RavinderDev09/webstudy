@@ -16,7 +16,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
    imports: [
     CommonModule,     // ✅ Needed for *ngIf, *ngFor, and pipes
-    RouterOutlet,
+    // RouterOutlet,
     DatePipe          // ✅ Needed for | date pipe
   ],
   templateUrl: './app.component.html',

@@ -1,112 +1,111 @@
-<div class="app-container">
+<div class="app">
   <!-- Header Section -->
-  <header class="app-header">
-    <div class="header-logo">StudyMode</div>
-    <nav class="header-nav">
-      <a href="#">Features</a>
-      <a href="#">How It Works</a>
-      <a href="#">Testimonials</a>
-      <a href="#">Download</a>
+  <header class="header">
+    <div class="header__logo">StudyMode</div>
+    <nav class="header__nav">
+      <a class="header__link" href="#">Features</a>
+      <a class="header__link" href="#">How It Works</a>
+      <a class="header__link" href="#">Testimonials</a>
+      <a class="header__link" href="#">Download</a>
     </nav>
   </header>
   
   <!-- Hero Section -->
-  <section class="hero-section" [@fadeIn]>
-    <div class="hero-content">
-      <h1>STUDENT PRODUCTIVITY PLATFORM</h1>
-      <h2>Smarter Studying, Better Results</h2>
-      <p>StudyMode combines all the tools you need to excel academically - study planning, progress tracking, focus tools, and AI-powered learning - completely free.</p>
-      <button class="download-button" [@pulse]="pulseState" (mouseenter)="startPulse()" (mouseleave)="stopPulse()">Download Now</button>
+  <section class="hero" [@fadeIn]>
+    <div class="hero__content">
+      <h1 class="hero__title">STUDENT PRODUCTIVITY PLATFORM</h1>
+      <h2 class="hero__subtitle">Smarter Studying, Better Results</h2>
+      <p class="hero__description">StudyMode combines all the tools you need to excel academically - study planning, progress tracking, focus tools, and AI-powered learning - completely free.</p>
+      <button class="hero__button button--primary" [@pulse]="pulseState" (mouseenter)="startPulse()" (mouseleave)="stopPulse()">Download Now</button>
     </div>
   </section>
 
   <!-- Stats Section -->
-  <section class="stats-section" [@slideInUp]>
-    <div class="stats-container">
-      <div class="stat-item" *ngFor="let stat of stats" [@counter]="stat.value">
-        <div class="stat-number">{{ stat.value }}</div>
-        <div class="stat-label">{{ stat.label }}</div>
+  <section class="stats" [@slideInUp]>
+    <div class="stats__container">
+      <div class="stats__item" *ngFor="let stat of stats" [@counter]="stat.value">
+        <div class="stats__number">{{ stat.value }}</div>
+        <div class="stats__label">{{ stat.label }}</div>
       </div>
     </div>
   </section>
 
   <!-- Study Tracking Section -->
-  <section class="study-tracking-section" [@fadeInUp]>
-    <div class="tracking-container">
-      <div class="time-display">{{ currentTime | date:'HH:mm' }}</div>
-      <h3>Today's Study Hours</h3>
+  <section class="tracking" [@fadeInUp]>
+    <div class="tracking__card card">
+      <div class="tracking__time">{{ currentTime | date:'HH:mm' }}</div>
+      <h3 class="tracking__heading">Today's Study Hours</h3>
       
-      <div class="subject-progress">
-        <div class="subject" *ngFor="let subject of subjects">
-          <span>{{ subject.name }}</span>
-          <span>{{ subject.hours }}h</span>
+      <div class="tracking__subjects">
+        <div class="tracking__subject" *ngFor="let subject of subjects">
+          <span class="tracking__subject-name">{{ subject.name }}</span>
+          <span class="tracking__subject-hours">{{ subject.hours }}h</span>
         </div>
       </div>
       
-      <div class="total-progress">
-        <span>{{ totalHours }}h Total</span>
-        <span class="warning" *ngIf="belowGoal">1h below goal</span>
+      <div class="tracking__total">
+        <span class="tracking__total-hours">{{ totalHours }}h Total</span>
+        <span class="tracking__warning" *ngIf="belowGoal">1h below goal</span>
       </div>
       
-      <div class="study-plan">
-        <h4>Today's Study Plan</h4>
-        <ul>
-          <li *ngFor="let task of studyPlan">{{ task }}</li>
+      <div class="tracking__plan">
+        <h4 class="tracking__plan-heading">Today's Study Plan</h4>
+        <ul class="tracking__plan-list">
+          <li class="tracking__plan-item" *ngFor="let task of studyPlan">{{ task }}</li>
         </ul>
       </div>
     </div>
   </section>
 
   <!-- Features Section -->
-  <section class="features-section">
-    <div class="features-container">
-      <h2 [@slideInLeft]>EVERYTHING YOU NEED</h2>
-      <h3 [@slideInRight]>Your Complete Study Companion</h3>
-      <p class="subtitle" [@fadeIn]>StudyMode combines powerful tools to help you stay organized, focused, and ahead in your studies - completely free.</p>
+  <section class="features">
+    <div class="features__container">
+      <h2 class="features__title" [@slideInLeft]>EVERYTHING YOU NEED</h2>
+      <h3 class="features__subtitle" [@slideInRight]>Your Complete Study Companion</h3>
+      <p class="features__description" [@fadeIn]>StudyMode combines powerful tools to help you stay organized, focused, and ahead in your studies - completely free.</p>
       
-      <div class="features-grid">
-        <!-- Feature Cards -->
-        <div class="feature-card" *ngFor="let feature of features" [@staggerAnimation]>
-          <div class="feature-icon">{{ feature.icon }}</div>
-          <h4>{{ feature.title }}</h4>
-          <p>{{ feature.description }}</p>
+      <div class="features__grid">
+        <div class="feature-card card" *ngFor="let feature of features" [@staggerAnimation]>
+          <div class="feature-card__icon">{{ feature.icon }}</div>
+          <h4 class="feature-card__title">{{ feature.title }}</h4>
+          <p class="feature-card__description">{{ feature.description }}</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Additional Tools Section -->
-  <section class="tools-section" [@fadeIn]>
-    <div class="tools-container">
-      <h3>Study Smarter, Not Harder</h3>
-      <div class="tools-grid">
-        <div class="tool-item" *ngFor="let tool of tools" [@slideInUp]>
-          <h4>{{ tool.title }}</h4>
-          <p>{{ tool.description }}</p>
+  <!-- Tools Section -->
+  <section class="tools" [@fadeIn]>
+    <div class="tools__container">
+      <h3 class="tools__heading">Study Smarter, Not Harder</h3>
+      <div class="tools__grid">
+        <div class="tool-card card" *ngFor="let tool of tools" [@slideInUp]>
+          <h4 class="tool-card__title">{{ tool.title }}</h4>
+          <p class="tool-card__description">{{ tool.description }}</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Final CTA Section -->
-  <section class="cta-section" [@zoomIn]>
-    <div class="cta-container">
-      <h2>Ready to Transform Your Study Habits?</h2>
-      <button class="cta-button" [@pulse]="pulseState" (mouseenter)="startPulse()" (mouseleave)="stopPulse()">Download StudyMode Now</button>
-      <p class="small-text">Join 10,000+ students already improving their grades</p>
+  <!-- CTA Section -->
+  <section class="cta" [@zoomIn]>
+    <div class="cta__container">
+      <h2 class="cta__heading">Ready to Transform Your Study Habits?</h2>
+      <button class="cta__button button--white" [@pulse]="pulseState" (mouseenter)="startPulse()" (mouseleave)="stopPulse()">Download StudyMode Now</button>
+      <p class="cta__note">Join 10,000+ students already improving their grades</p>
     </div>
   </section>
 
   <!-- Footer Section -->
-  <footer class="app-footer" [@fadeIn]>
-    <div class="footer-container">
-      <div class="footer-logo">StudyMode</div>
-      <div class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Contact Us</a>
+  <footer class="footer" [@fadeIn]>
+    <div class="footer__container">
+      <div class="footer__logo">StudyMode</div>
+      <div class="footer__links">
+        <a class="footer__link" href="#">Privacy Policy</a>
+        <a class="footer__link" href="#">Terms of Service</a>
+        <a class="footer__link" href="#">Contact Us</a>
       </div>
-      <div class="copyright">© 2025 StudyMode. All rights reserved.</div>
+      <div class="footer__copyright">© 2025 StudyMode. All rights reserved.</div>
     </div>
   </footer>
 </div>
