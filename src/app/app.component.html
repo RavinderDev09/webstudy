@@ -1,62 +1,57 @@
 <div class="app-container">
   <!-- Header Section -->
-  <app-header></app-header>
+  <header class="app-header">
+    <div class="header-logo">StudyMode</div>
+    <nav class="header-nav">
+      <a href="#">Features</a>
+      <a href="#">How It Works</a>
+      <a href="#">Testimonials</a>
+      <a href="#">Download</a>
+    </nav>
+  </header>
   
   <!-- Hero Section -->
-  <section class="hero-section">
+  <section class="hero-section" [@fadeIn]>
     <div class="hero-content">
       <h1>STUDENT PRODUCTIVITY PLATFORM</h1>
       <h2>Smarter Studying, Better Results</h2>
       <p>StudyMode combines all the tools you need to excel academically - study planning, progress tracking, focus tools, and AI-powered learning - completely free.</p>
-      <button class="download-button">Download Now</button>
+      <button class="download-button" [@pulse]="pulseState" (mouseenter)="startPulse()" (mouseleave)="stopPulse()">Download Now</button>
     </div>
   </section>
 
   <!-- Stats Section -->
-  <section class="stats-section">
+  <section class="stats-section" [@slideInUp]>
     <div class="stats-container">
-      <div class="stat-item">
-        <div class="stat-number">10K+</div>
-        <div class="stat-label">Active Students</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">4.9</div>
-        <div class="stat-label">App Rating</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Free</div>
+      <div class="stat-item" *ngFor="let stat of stats" [@counter]="stat.value">
+        <div class="stat-number">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
       </div>
     </div>
   </section>
 
   <!-- Study Tracking Section -->
-  <section class="study-tracking-section">
+  <section class="study-tracking-section" [@fadeInUp]>
     <div class="tracking-container">
-      <div class="time-display">9:41</div>
+      <div class="time-display">{{ currentTime | date:'HH:mm' }}</div>
       <h3>Today's Study Hours</h3>
       
       <div class="subject-progress">
-        <div class="subject">
-          <span>Mathematics</span>
-          <span>2.5h</span>
-        </div>
-        <div class="subject">
-          <span>Physics</span>
-          <span>1h</span>
+        <div class="subject" *ngFor="let subject of subjects">
+          <span>{{ subject.name }}</span>
+          <span>{{ subject.hours }}h</span>
         </div>
       </div>
       
       <div class="total-progress">
-        <span>3.5h Total</span>
-        <span class="warning">1h below goal</span>
+        <span>{{ totalHours }}h Total</span>
+        <span class="warning" *ngIf="belowGoal">1h below goal</span>
       </div>
       
       <div class="study-plan">
         <h4>Today's Study Plan</h4>
         <ul>
-          <li>Complete Math assignment</li>
-          <li>Physics chapter 5 (45min)</li>
+          <li *ngFor="let task of studyPlan">{{ task }}</li>
         </ul>
       </div>
     </div>
@@ -65,74 +60,45 @@
   <!-- Features Section -->
   <section class="features-section">
     <div class="features-container">
-      <h2>EVERYTHING YOU NEED</h2>
-      <h3>Your Complete Study Companion</h3>
-      <p class="subtitle">StudyMode combines powerful tools to help you stay organized, focused, and ahead in your studies - completely free.</p>
+      <h2 [@slideInLeft]>EVERYTHING YOU NEED</h2>
+      <h3 [@slideInRight]>Your Complete Study Companion</h3>
+      <p class="subtitle" [@fadeIn]>StudyMode combines powerful tools to help you stay organized, focused, and ahead in your studies - completely free.</p>
       
       <div class="features-grid">
-        <!-- Feature 1 -->
-        <div class="feature-card">
-          <div class="feature-icon">📅</div>
-          <h4>Smart Study Plan</h4>
-          <p>Create personalized study schedules with smart recommendations based on your audience and access.</p>
-        </div>
-        
-        <!-- Feature 2 -->
-        <div class="feature-card">
-          <div class="feature-icon">⏱️</div>
-          <h4>Study Hours Tracking</h4>
-          <p>Track your daily study hours with analytics to maintain consistent study habits.</p>
-        </div>
-        
-        <!-- Feature 3 -->
-        <div class="feature-card">
-          <div class="feature-icon">🤖</div>
-          <h4>AI Doubt Solver</h4>
-          <p>Get instant explanations for concepts with our AI-powered doubt solver.</p>
-        </div>
-        
-        <!-- Feature 4 -->
-        <div class="feature-card">
-          <div class="feature-icon">📚</div>
-          <h4>Semester Studying</h4>
-          <p>Organize your materials by semester and subjects for better results.</p>
+        <!-- Feature Cards -->
+        <div class="feature-card" *ngFor="let feature of features" [@staggerAnimation]>
+          <div class="feature-icon">{{ feature.icon }}</div>
+          <h4>{{ feature.title }}</h4>
+          <p>{{ feature.description }}</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Additional Tools Section -->
-  <section class="tools-section">
+  <section class="tools-section" [@fadeIn]>
     <div class="tools-container">
       <h3>Study Smarter, Not Harder</h3>
       <div class="tools-grid">
-        <div class="tool-item">
-          <h4>Highlight Tool</h4>
-          <p>Mark important content and save for later review.</p>
-        </div>
-        <div class="tool-item">
-          <h4>Screenshot Capture</h4>
-          <p>Screenshots copied to clipboard automatically saved to screenshots folder.</p>
-        </div>
-        <div class="tool-item">
-          <h4>Mark-up & Share</h4>
-          <p>Annotate your study materials and share with classmates.</p>
+        <div class="tool-item" *ngFor="let tool of tools" [@slideInUp]>
+          <h4>{{ tool.title }}</h4>
+          <p>{{ tool.description }}</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Final CTA Section -->
-  <section class="cta-section">
+  <section class="cta-section" [@zoomIn]>
     <div class="cta-container">
       <h2>Ready to Transform Your Study Habits?</h2>
-      <button class="cta-button">Download StudyMode Now</button>
+      <button class="cta-button" [@pulse]="pulseState" (mouseenter)="startPulse()" (mouseleave)="stopPulse()">Download StudyMode Now</button>
       <p class="small-text">Join 10,000+ students already improving their grades</p>
     </div>
   </section>
 
   <!-- Footer Section -->
-  <footer class="app-footer">
+  <footer class="app-footer" [@fadeIn]>
     <div class="footer-container">
       <div class="footer-logo">StudyMode</div>
       <div class="footer-links">
