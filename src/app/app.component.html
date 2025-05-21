@@ -1,111 +1,288 @@
-<div class="app">
-  <!-- Header Section -->
+<div class="app" [class.dark-mode]="darkMode">
+  <!-- Animated Background Elements -->
+  <div class="bg-shapes">
+    <div class="shape-1"></div>
+    <div class="shape-2"></div>
+    <div class="shape-3"></div>
+  </div>
+
+  <!-- Header with Theme Toggle -->
   <header class="header">
-    <div class="header__logo">StudyMode</div>
-    <nav class="header__nav">
-      <a class="header__link" href="#">Features</a>
-      <a class="header__link" href="#">How It Works</a>
-      <a class="header__link" href="#">Testimonials</a>
-      <a class="header__link" href="#">Download</a>
-    </nav>
+    <div class="header__container">
+      <div class="header__logo">
+        <span class="logo__icon">📚</span>
+        <span class="logo__text">StudyMode</span>
+      </div>
+      
+      <nav class="header__nav">
+        <a class="nav__link" *ngFor="let link of navLinks" 
+           [routerLink]="link.path" routerLinkActive="active">
+          {{ link.label }}
+        </a>
+      </nav>
+      
+      <div class="header__actions">
+        <button class="theme-toggle" (click)="toggleTheme()">
+          <span class="toggle-icon">{{ darkMode ? '☀️' : '🌙' }}</span>
+        </button>
+        <button class="header__cta" (click)="scrollToDownload()">
+          Get Started
+        </button>
+      </div>
+      
+      <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+        <span class="menu-icon">☰</span>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" [class.active]="mobileMenuOpen">
+      <a class="mobile-link" *ngFor="let link of navLinks" 
+         [routerLink]="link.path" (click)="toggleMobileMenu()">
+        {{ link.label }}
+      </a>
+      <button class="mobile-cta" (click)="scrollToDownload(); toggleMobileMenu()">
+        Download Now
+      </button>
+    </div>
   </header>
-  
-  <!-- Hero Section -->
-  <section class="hero" [@fadeIn]>
-    <div class="hero__content">
-      <h1 class="hero__title">STUDENT PRODUCTIVITY PLATFORM</h1>
-      <h2 class="hero__subtitle">Smarter Studying, Better Results</h2>
-      <p class="hero__description">StudyMode combines all the tools you need to excel academically - study planning, progress tracking, focus tools, and AI-powered learning - completely free.</p>
-      <button class="hero__button button--primary" [@pulse]="pulseState" (mouseenter)="startPulse()" (mouseleave)="stopPulse()">Download Now</button>
-    </div>
-  </section>
 
-  <!-- Stats Section -->
-  <section class="stats" [@slideInUp]>
-    <div class="stats__container">
-      <div class="stats__item" *ngFor="let stat of stats" [@counter]="stat.value">
-        <div class="stats__number">{{ stat.value }}</div>
-        <div class="stats__label">{{ stat.label }}</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Study Tracking Section -->
-  <section class="tracking" [@fadeInUp]>
-    <div class="tracking__card card">
-      <div class="tracking__time">{{ currentTime | date:'HH:mm' }}</div>
-      <h3 class="tracking__heading">Today's Study Hours</h3>
-      
-      <div class="tracking__subjects">
-        <div class="tracking__subject" *ngFor="let subject of subjects">
-          <span class="tracking__subject-name">{{ subject.name }}</span>
-          <span class="tracking__subject-hours">{{ subject.hours }}h</span>
+  <!-- Hero Section with Particle Background -->
+  <section class="hero" #hero>
+    <div class="particles" #particles></div>
+    <div class="hero__container">
+      <div class="hero__content">
+        <div class="tagline">SMART LEARNING PLATFORM</div>
+        <h1 class="hero__title">
+          <span class="title-line">Transform Your</span>
+          <span class="title-line highlight">Study Habits</span>
+        </h1>
+        <p class="hero__description">
+          StudyMode combines AI-powered tools with scientifically proven techniques to help you study smarter, not harder.
+        </p>
+        <div class="hero__cta">
+          <button class="cta-primary" (click)="scrollToDownload()">
+            Start Free Trial
+          </button>
+          <button class="cta-secondary" (click)="openVideoModal()">
+            <span class="play-icon">▶</span> Watch Demo
+          </button>
+        </div>
+        <div class="hero__stats">
+          <div class="stat-item" *ngFor="let stat of heroStats">
+            <div class="stat-value">{{ stat.value }}+</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
         </div>
       </div>
-      
-      <div class="tracking__total">
-        <span class="tracking__total-hours">{{ totalHours }}h Total</span>
-        <span class="tracking__warning" *ngIf="belowGoal">1h below goal</span>
+      <div class="hero__visual">
+        <div class="app-preview">
+          <img src="assets/images/app-screenshot.png" alt="StudyMode App Preview" class="preview-image">
+          <div class="preview-highlight"></div>
+        </div>
       </div>
-      
-      <div class="tracking__plan">
-        <h4 class="tracking__plan-heading">Today's Study Plan</h4>
-        <ul class="tracking__plan-list">
-          <li class="tracking__plan-item" *ngFor="let task of studyPlan">{{ task }}</li>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="trust-badges">
+    <div class="badge-container">
+      <div class="badge-item" *ngFor="let badge of trustBadges">
+        <img [src]="badge.logo" [alt]="badge.name" class="badge-logo">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section with 3D Cards -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <div class="section-subtitle">POWERFUL FEATURES</div>
+      <h2 class="section-title">Your Complete Study Toolkit</h2>
+      <p class="section-description">
+        Everything you need to maximize your learning efficiency in one seamless platform
+      </p>
+    </div>
+    
+   <div class="features__grid">
+  <div class="feature-card" 
+       *ngFor="let feature of features"
+       (mousemove)="onMouseMove($event, feature.id)"
+       [style.transform]="getCardTransform(feature.id)"
+       (mouseenter)="activateCard(feature.id)"
+       (mouseleave)="deactivateCard()">
+       
+    <div class="card-icon" [innerHTML]="feature.icon"></div>
+    <h3 class="card-title">{{ feature.title }}</h3>
+    <p class="card-description">{{ feature.description }}</p>
+    <div class="card-hover">
+      <button class="card-button">Learn More</button>
+    </div>
+  </div>
+</div>
+
+  </section>
+
+  <!-- Productivity Stats -->
+  <section class="stats-section" id="stats">
+    <div class="stats-container">
+      <div class="stats-visual">
+        <div class="stats-graph">
+          <!-- Animated SVG graph would go here -->
+          <img src="assets/images/productivity-graph.svg" alt="Productivity increase graph">
+        </div>
+      </div>
+      <div class="stats-content">
+        <h3 class="stats-title">Proven Productivity Boost</h3>
+        <p class="stats-description">
+          Students using StudyMode report a 68% increase in study efficiency and 42% better retention rates.
+        </p>
+        <div class="stats-items">
+          <div class="stat-circle" *ngFor="let stat of productivityStats">
+            <div class="circle-value">{{ stat.value }}</div>
+            <div class="circle-label">{{ stat.label }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Carousel -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials-header">
+      <h3>Trusted by Students Worldwide</h3>
+      <div class="carousel-controls">
+        <button class="control-prev" (click)="prevTestimonial()">←</button>
+        <button class="control-next" (click)="nextTestimonial()">→</button>
+      </div>
+    </div>
+    
+    <div class="testimonials-container">
+      <div class="testimonial-track" [style.transform]="'translateX(' + currentTestimonial * -100 + '%)'">
+        <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+          <div class="testimonial-content">
+            <div class="quote-icon">“</div>
+            <p class="testimonial-text">{{ testimonial.text }}</p>
+            <div class="testimonial-author">
+              <img [src]="testimonial.avatar" [alt]="testimonial.name" class="author-avatar">
+              <div class="author-info">
+                <div class="author-name">{{ testimonial.name }}</div>
+                <div class="author-title">{{ testimonial.title }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="testimonial-dots">
+      <span *ngFor="let dot of testimonials; let i = index" 
+            [class.active]="i === currentTestimonial"
+            (click)="goToTestimonial(i)"></span>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <div class="section-header">
+      <div class="section-subtitle">SIMPLE PRICING</div>
+      <h2 class="section-title">Choose Your Plan</h2>
+      <div class="pricing-toggle">
+        <span [class.active]="!yearlyBilling">Monthly</span>
+        <label class="toggle-switch">
+          <input type="checkbox" [(ngModel)]="yearlyBilling">
+          <span class="slider"></span>
+        </label>
+        <span [class.active]="yearlyBilling">Yearly <span class="discount">(Save 20%)</span></span>
+      </div>
+    </div>
+    
+    <div class="pricing-cards">
+      <div class="price-card" [class.featured]="plan.featured" *ngFor="let plan of pricingPlans">
+        <div class="card-header">
+          <h3 class="plan-name">{{ plan.name }}</h3>
+          <div class="plan-price">
+            <span class="amount">{{ yearlyBilling ? plan.yearlyPrice : plan.monthlyPrice }}</span>
+            <span class="period">/{{ yearlyBilling ? 'year' : 'mo' }}</span>
+          </div>
+          <p class="plan-description">{{ plan.description }}</p>
+        </div>
+        <ul class="plan-features">
+          <li *ngFor="let feature of plan.features">{{ feature }}</li>
         </ul>
+        <button class="plan-button" [class.featured]="plan.featured">
+          {{ plan.featured ? 'Get Started' : 'Choose Plan' }}
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class="features">
-    <div class="features__container">
-      <h2 class="features__title" [@slideInLeft]>EVERYTHING YOU NEED</h2>
-      <h3 class="features__subtitle" [@slideInRight]>Your Complete Study Companion</h3>
-      <p class="features__description" [@fadeIn]>StudyMode combines powerful tools to help you stay organized, focused, and ahead in your studies - completely free.</p>
+  <!-- Final CTA -->
+  <section class="final-cta" id="download">
+    <div class="cta-container">
+      <div class="cta-content">
+        <h2>Ready to Transform Your Study Habits?</h2>
+        <p>Join thousands of students achieving better results with less effort</p>
+        <div class="cta-buttons">
+          <button class="cta-primary">Download Now</button>
+          <button class="cta-outline">Schedule Demo</button>
+        </div>
+      </div>
+      <div class="cta-visual">
+        <img src="assets/images/cta-illustration.svg" alt="Student studying illustration">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">StudyMode</div>
+          <p class="footer-mission">Empowering students through intelligent study technology</p>
+          <div class="social-links">
+            <a *ngFor="let social of socialLinks" [href]="social.url" class="social-link">
+              <img [src]="social.icon" [alt]="social.name">
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <div class="link-group" *ngFor="let group of footerLinks">
+            <h4 class="group-title">{{ group.title }}</h4>
+            <ul>
+              <li *ngFor="let link of group.links">
+                <a [href]="link.url">{{ link.label }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
       
-      <div class="features__grid">
-        <div class="feature-card card" *ngFor="let feature of features" [@staggerAnimation]>
-          <div class="feature-card__icon">{{ feature.icon }}</div>
-          <h4 class="feature-card__title">{{ feature.title }}</h4>
-          <p class="feature-card__description">{{ feature.description }}</p>
+      <div class="footer-bottom">
+        <div class="copyright">© 2025 StudyMode. All rights reserved.</div>
+        <div class="legal-links">
+          <a *ngFor="let link of legalLinks" [href]="link.url">{{ link.label }}</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Tools Section -->
-  <section class="tools" [@fadeIn]>
-    <div class="tools__container">
-      <h3 class="tools__heading">Study Smarter, Not Harder</h3>
-      <div class="tools__grid">
-        <div class="tool-card card" *ngFor="let tool of tools" [@slideInUp]>
-          <h4 class="tool-card__title">{{ tool.title }}</h4>
-          <p class="tool-card__description">{{ tool.description }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="cta" [@zoomIn]>
-    <div class="cta__container">
-      <h2 class="cta__heading">Ready to Transform Your Study Habits?</h2>
-      <button class="cta__button button--white" [@pulse]="pulseState" (mouseenter)="startPulse()" (mouseleave)="stopPulse()">Download StudyMode Now</button>
-      <p class="cta__note">Join 10,000+ students already improving their grades</p>
-    </div>
-  </section>
-
-  <!-- Footer Section -->
-  <footer class="footer" [@fadeIn]>
-    <div class="footer__container">
-      <div class="footer__logo">StudyMode</div>
-      <div class="footer__links">
-        <a class="footer__link" href="#">Privacy Policy</a>
-        <a class="footer__link" href="#">Terms of Service</a>
-        <a class="footer__link" href="#">Contact Us</a>
-      </div>
-      <div class="footer__copyright">© 2025 StudyMode. All rights reserved.</div>
     </div>
   </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" (click)="scrollToTop()" *ngIf="showScrollButton">
+    ↑
+  </button>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" [class.active]="videoModalOpen">
+  <div class="modal-overlay" (click)="closeVideoModal()"></div>
+  <div class="modal-content">
+    <button class="modal-close" (click)="closeVideoModal()">×</button>
+    <div class="video-container">
+      <iframe *ngIf="videoModalOpen" width="100%" height="100%" 
+              [src]="videoUrl | safe" frameborder="0" 
+              allowfullscreen></iframe>
+    </div>
+  </div>
 </div>
