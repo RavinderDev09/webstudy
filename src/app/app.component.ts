@@ -96,19 +96,19 @@ export class AppComponent implements AfterViewInit {
       text: 'StudyMode completely transformed how I prepare for exams. I went from barely passing to top of my class!',
       name: 'Sarah Johnson',
       title: 'Medical Student, Harvard',
-      avatar: 'assets/sarah-avatar.jpg'
+      avatar: 'assets/student1.jpg'
     },
     {
       text: 'The AI summaries save me hours each week. I can now cover twice as much material in half the time.',
       name: 'Raj Patel',
       title: 'Engineering Student, MIT',
-      avatar: 'assets/raj-avatar.jpg'
+      avatar: 'assets/student2.jpg'
     },
     {
       text: 'As a working professional, StudyMode helps me maximize my limited study time. Worth every penny!',
       name: 'Maria Gonzalez',
       title: 'MBA Candidate, Stanford',
-      avatar: 'assets/maria-avatar.jpg'
+      avatar: 'assets/student3.jpg'
     }
   ];
 
@@ -155,12 +155,13 @@ export class AppComponent implements AfterViewInit {
       featured: false
     }
   ];
+  
 
   socialLinks = [
-    { name: 'Twitter', url: '#', icon: 'assets/twitter-icon.svg' },
-    { name: 'Facebook', url: '#', icon: 'assets/facebook-icon.svg' },
-    { name: 'Instagram', url: '#', icon: 'assets/instagram-icon.svg' },
-    { name: 'LinkedIn', url: '#', icon: 'assets/linkedin-icon.svg' }
+{ name: 'twitter', url: 'https://twitter.com', icon: 'assets/twitter.png' },
+    { name: 'Facebook', url: 'https://facebook.com', icon: 'assets/fb.jpg' },
+    { name: 'Instagram', url: 'https://instagram.com', icon: 'assets/instag.jpg' },
+    { name: 'LinkedIn', url: '#', icon: 'assets/linkding.png' }
   ];
 
   footerLinks = [
