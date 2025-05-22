@@ -209,6 +209,33 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('hero') hero!: ElementRef;
 
   constructor(private renderer: Renderer2) {}
+  isDarkMode = false;
+
+  onDarkModeChanged(isDarkMode: boolean) {
+    this.isDarkMode = isDarkMode;
+    this.applyDarkModeStyles();
+    
+    // Optional: Save preference to localStorage
+    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+  }
+
+  // Apply dark mode styles to the whole app
+  private applyDarkModeStyles() {
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }
+
+  // Initialize dark mode from saved preference
+  ngOnInit() {
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode) {
+      this.isDarkMode = JSON.parse(savedMode);
+      this.applyDarkModeStyles();
+    }
+  }
 
   ngAfterViewInit() {
     this.createParticles();

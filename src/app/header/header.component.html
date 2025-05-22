@@ -1,11 +1,46 @@
-<header class="header">
-  <div class="container">
-    <div class="logo">StudyMode</div>
-    <nav>
-      <a href="#features">Features</a>
-      <a href="#download">Download</a>
-      <a href="#about">About</a>
-    </nav>
-    <button class="download-btn">Download Now</button>
+<header class="header" [class.dark-mode]="darkMode">
+  <div class="header__container">
+    <div class="header__logo">
+      <span class="logo__icon">📚</span>
+      <span class="logo__text">StudyMode</span>
+    </div>
+    
+    <nav class="header__nav">
+  <a class="nav__link" (click)="scrollToSection('home')">Home</a>
+  <a class="nav__link" (click)="scrollToSection('about')">About</a>
+<a class="nav__link" 
+   (click)="scrollToSection('features')"
+   [class.active]="currentSection === 'features'">Features</a>  <a class="nav__link" (click)="scrollToSection('pricing')">Pricing</a>
+  <a class="nav__link" (click)="scrollToSection('testimonials')">Testimonials</a>
+  <a class="nav__link" routerLink="/contact">Contact</a>
+  <a class="nav__link" routerLink="/blog">Blog</a>
+</nav>
+
+    <div class="header__actions">
+      <button class="theme-toggle" (click)="toggleTheme()">
+        <span class="toggle-icon">{{ darkMode ? '☀️' : '🌙' }}</span>
+      </button>
+      <button class="header__cta" (click)="scrollToSection('download')">
+        Get Started
+      </button>
+    </div>
+    
+    <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+      <span class="menu-icon">☰</span>
+    </button>
   </div>
+  
+  <!-- Mobile Menu -->
+<div class="mobile-menu" [class.active]="mobileMenuOpen">
+  <a class="mobile-link" (click)="scrollToSection('home'); toggleMobileMenu()">Home</a>
+  <a class="mobile-link" (click)="scrollToSection('about'); toggleMobileMenu()">About</a>
+  <a class="mobile-link" (click)="scrollToSection('features'); toggleMobileMenu()">Features</a>
+  <a class="mobile-link" (click)="scrollToSection('pricing'); toggleMobileMenu()">Pricing</a>
+  <a class="mobile-link" (click)="scrollToSection('testimonials'); toggleMobileMenu()">Testimonials</a>
+  <a class="mobile-link" routerLink="/contact" (click)="toggleMobileMenu()">Contact</a>
+  <a class="mobile-link" routerLink="/blog" (click)="toggleMobileMenu()">Blog</a>
+  <button class="mobile-cta" (click)="scrollToDownload(); toggleMobileMenu()">
+    Download Now
+  </button>
+</div>
 </header>

@@ -1,73 +1,76 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, HostListener, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  imports: [],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-    darkMode = false;
   mobileMenuOpen = false;
-  yearlyBilling = false;
-  videoModalOpen = false;
-  showScrollButton = false;
-  currentTestimonial = 0;
-  activeCard: number | null = null;
+  darkMode = false;
+  currentSection = 'home';
+  
+  // For parent component to listen to dark mode changes
+  @Output() darkModeChanged = new EventEmitter<boolean>();
 
-    @ViewChild('particles') particles!: ElementRef;
+  navLinks = [
+    { path: '/', label: 'Home', section: 'home' },
+    { path: '/about', label: 'About', section: 'about' },
+    { path: '/features', label: 'Features', section: 'features' },
+    { path: '/pricing', label: 'Pricing', section: 'pricing' },
+    { path: '/testimonials', label: 'Testimonials', section: 'testimonials' },
+    { path: '/contact', label: 'Contact' },
+    { path: '/blog', label: 'Blog' }
+  ];
 
-  constructor(private renderer: Renderer2) {}
-
-   createParticles() {
-    const particleCount = 30;
-    const particlesEl = this.particles.nativeElement;
-    
-    for (let i = 0; i < particleCount; i++) {
-      const particle = this.renderer.createElement('div');
-      this.renderer.addClass(particle, 'particle');
-      
-      const size = Math.random() * 5 + 2;
-      const posX = Math.random() * 100;
-      const posY = Math.random() * 100;
-      const delay = Math.random() * 5;
-      const duration = Math.random() * 10 + 10;
-      
-      this.renderer.setStyle(particle, 'width', `${size}px`);
-      this.renderer.setStyle(particle, 'height', `${size}px`);
-      this.renderer.setStyle(particle, 'left', `${posX}%`);
-      this.renderer.setStyle(particle, 'top', `${posY}%`);
-      this.renderer.setStyle(particle, 'animation-delay', `${delay}s`);
-      this.renderer.setStyle(particle, 'animation-duration', `${duration}s`);
-      
-      this.renderer.appendChild(particlesEl, particle);
-    }
-  }
-
-   ngAfterViewInit() {
-    this.createParticles();
+  toggleMobileMenu() {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
   toggleTheme() {
     this.darkMode = !this.darkMode;
+    this.darkModeChanged.emit(this.darkMode);
+    localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
   }
 
-  toggleMobileMenu() {
-    this.mobileMenuOpen = !this.mobileMenuOpen;
+  scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      this.currentSection = sectionId;
+      this.mobileMenuOpen = false;
+    }
   }
 
   scrollToDownload() {
     document.getElementById('download')?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  openVideoModal() {
-    this.videoModalOpen = true;
-    this.renderer.addClass(document.body, 'no-scroll');
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    const sections = ['home', 'about', 'features', 'pricing', 'testimonials'];
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+    for (const section of sections) {
+      const element = document.getElementById(section);
+      if (element) {
+        const offset = element.offsetTop - 100;
+        const height = element.offsetHeight;
+        if (scrollPosition >= offset && scrollPosition < offset + height) {
+          this.currentSection = section;
+          break;
+        }
+      }
+    }
   }
 
-  closeVideoModal() {
-    this.videoModalOpen = false;
-    this.renderer.removeClass(document.body, 'no-scroll');
+  ngOnInit() {
+    // Load dark mode preference from localStorage
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode) {
+      this.darkMode = JSON.parse(savedMode);
+      this.darkModeChanged.emit(this.darkMode);
+    }
   }
 
 
