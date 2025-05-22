@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, ElementRef, Renderer2, ViewChild, AfterViewInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { SafePipe } from './safe.pipe';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from "./header/header.component";
 
 
 @Component({
@@ -13,7 +14,9 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RouterModule,
     SafePipe // Add the SafePipe to imports
-  ],
+    ,
+    HeaderComponent
+],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -40,11 +43,13 @@ export class AppComponent implements AfterViewInit {
   ];
 
   trustBadges = [
-    { name: 'Forbes', logo: 'assets/forbes-logo.svg' },
-    { name: 'TechCrunch', logo: 'assets/techcrunch-logo.svg' },
-    { name: 'The Guardian', logo: 'assets/guardian-logo.svg' },
-    { name: 'Harvard', logo: 'assets/harvard-logo.svg' }
+    { name: 'Forbes', logo: 'assets/forbes.logo.jpg' },
+    { name: 'TechCrunch', logo: 'assets/techCrunch-logo.png' },
+    { name: 'The Guardian', logo: 'assets/guardian-logo.png' },
+    { name: 'Harvard', logo: 'assets/harvard-logo.png' }
   ];
+
+
 
   features = [
     {
@@ -100,7 +105,7 @@ export class AppComponent implements AfterViewInit {
     },
     {
       text: 'The AI summaries save me hours each week. I can now cover twice as much material in half the time.',
-      name: 'Raj Patel',
+      name: 'Tannu Singh',
       title: 'Engineering Student, MIT',
       avatar: 'assets/student2.jpg'
     },
@@ -276,10 +281,47 @@ export class AppComponent implements AfterViewInit {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    this.showScrollButton = window.scrollY > 300;
+  // In your component
+// Add this to your existing component class
+scrollToSection(sectionId: string) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+    
+    // Close mobile menu if open
+    if (this.mobileMenuOpen) {
+      this.mobileMenuOpen = false;
+    }
+    
+    // Update URL without reloading (optional)
+    history.pushState(null, '', `#${sectionId}`);
   }
+}
+
+
+  // Add to your component class
+currentSection = 'home';
+
+@HostListener('window:scroll', ['$event'])
+onScroll() {
+  const sections = ['home', 'about', 'features', 'pricing', 'testimonials'];
+  const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+  for (const section of sections) {
+    const element = document.getElementById(section);
+    if (element) {
+      const offset = element.offsetTop - 100;
+      const height = element.offsetHeight;
+      if (scrollPosition >= offset && scrollPosition < offset + height) {
+        this.currentSection = section;
+        break;
+      }
+    }
+  }
+}
 
   createParticles() {
     const particleCount = 30;

@@ -196,7 +196,7 @@ body {
 
   &__nav {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
 
     .nav__link {
       text-decoration: none;
@@ -204,6 +204,8 @@ body {
       font-weight: 500;
       transition: $transition;
       position: relative;
+      font-size: 0.95rem;
+      padding: 0.5rem 0;
 
       &:hover {
         color: $primary;
@@ -216,7 +218,7 @@ body {
         &::after {
           content: '';
           position: absolute;
-          bottom: -5px;
+          bottom: 0;
           left: 0;
           width: 100%;
           height: 2px;
@@ -299,7 +301,9 @@ body {
     color: $dark;
     font-weight: 500;
     font-size: 1.1rem;
+    padding: 0.5rem 0;
     transition: $transition;
+    border-bottom: 1px solid $light-gray;
 
     &:hover {
       color: $primary;
@@ -531,7 +535,7 @@ body {
     }
 
     .badge-logo {
-      height: 30px;
+      height:40px;
       width: auto;
       object-fit: contain;
     }

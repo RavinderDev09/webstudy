@@ -6,46 +6,54 @@
     <div class="shape-3"></div>
   </div>
 
-  <!-- Header with Theme Toggle -->
-  <header class="header">
-    <div class="header__container">
-      <div class="header__logo">
-        <span class="logo__icon">📚</span>
-        <span class="logo__text">StudyMode</span>
-      </div>
-      
-      <nav class="header__nav">
-        <a class="nav__link" *ngFor="let link of navLinks" 
-           [routerLink]="link.path" routerLinkActive="active">
-          {{ link.label }}
-        </a>
-      </nav>
-      
-      <div class="header__actions">
-        <button class="theme-toggle" (click)="toggleTheme()">
-          <span class="toggle-icon">{{ darkMode ? '☀️' : '🌙' }}</span>
-        </button>
-        <button class="header__cta" (click)="scrollToDownload()">
-          Get Started
-        </button>
-      </div>
-      
-      <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
-        <span class="menu-icon">☰</span>
+  <app-header></app-header>
+
+ <!-- Header with Theme Toggle
+<header class="header">
+  <div class="header__container">
+    <div class="header__logo">
+      <span class="logo__icon">📚</span>
+      <span class="logo__text">StudyMode</span>
+    </div>
+    
+    <nav class="header__nav">
+  <a class="nav__link" (click)="scrollToSection('home')">Home</a>
+  <a class="nav__link" (click)="scrollToSection('about')">About</a>
+  <a class="nav__link" (click)="scrollToSection('features')">Features</a>
+  <a class="nav__link" (click)="scrollToSection('pricing')">Pricing</a>
+  <a class="nav__link" (click)="scrollToSection('testimonials')">Testimonials</a>
+  <a class="nav__link" routerLink="/contact">Contact</a>
+  <a class="nav__link" routerLink="/blog">Blog</a>
+</nav>
+    
+    <div class="header__actions">
+      <button class="theme-toggle" (click)="toggleTheme()">
+        <span class="toggle-icon">{{ darkMode ? '☀️' : '🌙' }}</span>
+      </button>
+      <button class="header__cta" (click)="scrollToDownload()">
+        Get Started
       </button>
     </div>
     
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" [class.active]="mobileMenuOpen">
-      <a class="mobile-link" *ngFor="let link of navLinks" 
-         [routerLink]="link.path" (click)="toggleMobileMenu()">
-        {{ link.label }}
-      </a>
-      <button class="mobile-cta" (click)="scrollToDownload(); toggleMobileMenu()">
-        Download Now
-      </button>
-    </div>
-  </header>
+    <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+      <span class="menu-icon">☰</span>
+    </button>
+  </div>
+  
+  <!-- Mobile Menu -->
+<!-- <div class="mobile-menu" [class.active]="mobileMenuOpen"> -->
+  <!-- <a class="mobile-link" (click)="scrollToSection('home'); toggleMobileMenu()">Home</a>
+  <a class="mobile-link" (click)="scrollToSection('about'); toggleMobileMenu()">About</a>
+  <a class="mobile-link" (click)="scrollToSection('features'); toggleMobileMenu()">Features</a>
+  <a class="mobile-link" (click)="scrollToSection('pricing'); toggleMobileMenu()">Pricing</a>
+  <a class="mobile-link" (click)="scrollToSection('testimonials'); toggleMobileMenu()">Testimonials</a>
+  <a class="mobile-link" routerLink="/contact" (click)="toggleMobileMenu()">Contact</a>
+  <a class="mobile-link" routerLink="/blog" (click)="toggleMobileMenu()">Blog</a>
+  <button class="mobile-cta" (click)="scrollToDownload(); toggleMobileMenu()">
+    Download Now
+  </button>
+</div> -->
+<!-- </header> --> 
 
   <!-- Hero Section with Particle Background -->
   <section class="hero" #hero>
@@ -77,13 +85,13 @@
       </div>
       <div class="hero__visual">
         <div class="app-preview">
-          <img src="../assets/student-app.jpg" alt="StudyMode App Preview" class="preview-image">
+          <img src="../assets/student-app2.jpg" alt="StudyMode App Preview" class="preview-image">
           <div class="preview-highlight"></div>
         </div>
       </div>
     </div>
   </section>
-
+ 
   <!-- Trust Badges -->
   <section class="trust-badges">
     <div class="badge-container">
@@ -229,7 +237,9 @@
         </div>
       </div>
       <div class="cta-visual">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVNBKzQnWfAD45VgZIx5Ty4Vmws7B5128qEw&s" alt="Student studying illustration">
+        <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVNBKzQnWfAD45VgZIx5Ty4Vmws7B5128qEw&s" alt="Student studying illustration"> -->
+                 <img src="../assets/student2.jpg" alt="Student studying illustration">
+
       </div>
     </div>
   </section>
